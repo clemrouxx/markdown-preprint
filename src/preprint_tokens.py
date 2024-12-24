@@ -2,9 +2,10 @@ from mistletoe import span_token, block_token
 import re
 import yaml
 
+# Span tokens
+
 class Reference(span_token.SpanToken):
     pattern = re.compile(r"\*\*(\S*):(\S+)\*\*")
-
     def __init__(self, match_obj):
         if match_obj.group(1) == "": # References of the form ':abc' get converted to 'abc'
             self.target = match_obj.group(2)
@@ -24,12 +25,21 @@ class Label(span_token.SpanToken):
 class Figure(span_token.SpanToken):
     pattern = re.compile(r'^!\[.*\]\((.*)\)\n?\^(\S*)\s+(.+)$')
     parse_inner = True
-    parse_group = 3
+    parse_group = 3 # Caption is parsed
+    def __init__(self, match_obj):
+        super().__init__(match_obj)
+        self.src = match_obj.group(1)
+        self.label = match_obj.group(2)
+    
+class LabeledEquation(span_token.SpanToken):
+    pattern =  re.compile(r"\$\$([^$]+)\$\$\n?\^(.*)")
+    parse_inner = False
+    def __init__(self,match_obj):
+        super().__init__(match_obj)
+        self.inner = match_obj.group(1)
+        self.label = match_obj.group(2)
 
-    def __init__(self, match):
-        super().__init__(match)
-        self.src = match.group(1)
-        self.label = match.group(2)
+# Block tokens
 
 class Callout(block_token.Quote):
     pattern = re.compile(r" {0,3}> ?\[!(\S+)\]")
@@ -49,15 +59,6 @@ class Callout(block_token.Quote):
     def read(cls, lines): # Parsing is identical to Quote, except that we remove the first line that defines the Callout type
         next(lines) # first line (already done)
         return super().read(lines)
-
-class LabeledEquation(span_token.SpanToken):
-    pattern =  re.compile(r"\$\$([^$]+)\$\$\n?\^(.*)")
-    parse_inner = False
-
-    def __init__(self,match):
-        super().__init__(match)
-        self.inner = match.group(1)
-        self.label = match.group(2)
 
 class MainContent(block_token.BlockToken):
     def __init__(self, lines):
@@ -82,7 +83,7 @@ class MainContent(block_token.BlockToken):
 class YamlHeader(block_token.BlockToken):
     def __init__(self,lines):
         super().__init__("",span_token.tokenize_inner)
-        self.data = yaml.safe_load(''.join(lines).replace("\t","    "))
+        self.data = yaml.safe_load(''.join(lines))
 
     @classmethod
     def start(cls,line):
@@ -97,5 +98,5 @@ class YamlHeader(block_token.BlockToken):
             line_buffer.append(next(lines))
             next_line = lines.peek()
         if next_line.strip() == "---":
-            next(lines) # Remove end '---'
+            next(lines) # Remove ending three dashes '---'
         return line_buffer

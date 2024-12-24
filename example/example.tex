@@ -5,10 +5,10 @@
 \usepackage{braket}
 \usepackage{listings}
 \usepackage{graphicx}
-\usepackage{biblatex}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{biblatex}
 \geometry{a4paper,left=20mm,top=20mm}
 \title{Example file for easy creation of a LaTeX file from Markdown}
 \author[1]{clemrouxx }
@@ -51,15 +51,32 @@ Ideally, it should look nice in Obsidian, and be consistant with its parsing
 
 In our program, all inserted images will be transformed into Figures. As such, the program expects a label (just after the image, preceded with a "\label{"),} and a caption (A paragraph of text just after the label and a line break). The usual prefix "fig:" for the label will be added automatically.
 
+
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{ducks.png}
     \caption{Enjoy this public-domain picture of ducks I found, as an example.}
     \label{fig:ducks}
 \end{figure}
+        
 
+A similar modification happens for, although not fully implemented as of now. See for example Table \ref{tab:cool-table}.
 
-A similar modification happens for tables.
+\begin{table}
+    \centering
+    \begin{tabular}{l|l}
+First column & Second column \\
+\hline
+Yay some text ! & How about some $m\mathbf{A}t\hat{H}$ ?? \\
+
+\end{tabular}
+
+    \caption{}
+    \label{tab:}
+\end{table}
+        
+\label{cool-table}
+This should function as a caption for this table. I have not implemented this yet though. Soon !
 
 \subsection{New features}
 

@@ -41,6 +41,6 @@ if __name__ == "__main__":
     file_path += "/" + "/".join(steps[:-1])
     file_name = steps[-1]
     os.chdir(file_path)
-    print("Rendering",file_path,file_name)
     renderPDF(file_name,quickrender=True)
+    print("Rendering finished !",file_path,file_name)
     

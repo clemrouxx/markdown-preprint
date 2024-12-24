@@ -26,7 +26,14 @@ In our program, all inserted images will be transformed into Figures. As such, t
 ^ducks
 Enjoy this public-domain picture of ducks I found, as an example.
 
-A similar modification happens for tables.
+A similar modification happens for, although not fully implemented as of now. See for example Table **tab:cool-table**.
+
+
+| First column    | Second column                           |
+| --------------- | --------------------------------------- |
+| Yay some text ! | How about some $m\mathbf{A}t\hat{H}$ ?? |
+^cool-table
+This should function as a caption for this table. I have not implemented this yet though. Soon !
 
 ## New features
 

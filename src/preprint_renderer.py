@@ -32,34 +32,37 @@ class PreprintRenderer(LaTeXRenderer):
         return template.format(token.key)
 
     def render_label(self, token):
-        template = '\\label{{{name}}}'
-        return template.format(name=token.name)
+        template = '\\label{{{}}}'
+        return template.format(token.name)
 
     def render_figure(self,token):
         self.packages["graphicx"] = []
-        template = """\\begin{{figure}}
+        template = """
+\\begin{{figure}}
     \\centering
     \\includegraphics[width=\\textwidth]{{{src}}}
     \\caption{{{caption}}}
     \\label{{fig:{label}}}
-\\end{{figure}}\n"""
+\\end{{figure}}
+        """
         return template.format(src=token.src ,label=token.label,caption=self.render_inner(token))
 
     def render_callout(self, token):
         template = '\\begin{{{callout_type}}}\n{inner}\\end{{{callout_type}}}\n'
         if token.type == "theorem":
-            pass # TODO : implement those
+            pass # TODO : implement those (add the necessary packages)
         elif token.type == "proof":
             pass
         return template.format(inner=self.render_inner(token),callout_type=token.type)
 
     def render_quote(self, token):
         self.packages['csquotes'] = []
-        template = '\\begin{{displayquote}}\n{inner}\\end{{displayquote}}\n'
-        return template.format(inner=self.render_inner(token))
+        template = '\\begin{{displayquote}}\n{}\\end{{displayquote}}\n'
+        return template.format(self.render_inner(token))
 
     def render_labeled_equation(self,token):
-        return '\\begin{{equation}}\n\t{inner}\n\\label{{eq:{label}}}\\end{{equation}}\n'.format(inner = token.inner,label=token.label)
+        template = '\\begin{{equation}}\n\t{inner}\n\\label{{eq:{label}}}\\end{{equation}}\n'
+        return template.format(inner = token.inner,label=token.label)
     
     def render_table(self, token): # Modified from the inherited version
         def render_align(column_align):
@@ -78,12 +81,14 @@ class PreprintRenderer(LaTeXRenderer):
                 return 'r'
             raise RuntimeError('Unrecognized align option: ' + col)
 
-        template = """\\begin{{table}}
+        template = """
+\\begin{{table}}
     \\centering
     \\begin{{tabular}}{align}\n{inner}\n\\end{{tabular}}\n
     \\caption{{{caption}}}
     \\label{{tab:{label}}}
-\\end{{table}}\n"""
+\\end{{table}}
+        """
         if hasattr(token, 'header'):
             head_template = '{inner}\\hline\n'
             head_inner = self.render_table_row(token.header)
@@ -95,7 +100,6 @@ class PreprintRenderer(LaTeXRenderer):
         return template.format(inner=head_rendered + inner, align=align, caption="", label="")
 
     def render_main_content(self,token):
-        # template = '\\begin{{multicols}}{{2}}\n{inner}\n\\end{{multicols}}\n' TODO : do this in the style file !
         template = '\\begin{{maincontent}}\n{}\n\\end{{maincontent}}\n'
         return template.format(self.render_inner(token))
 
@@ -125,7 +129,6 @@ class PreprintRenderer(LaTeXRenderer):
 
     def add_author(self,author_info):
         if type(author_info) == str:
-            print(author_info)
             author_pattern = re.compile(r'^([^\(]*)(\(.*\))?$') # For having multiple informations in just one string, eg : "Albert Einstein (ETH Zürich)"
             groups = author_pattern.match(author_info)
             author_info = {"name":groups.group(1)}
@@ -154,7 +157,6 @@ class PreprintRenderer(LaTeXRenderer):
         if "date" in self.yaml_data:
             self.header += '\\date{{{date}}}\n'.format(date=self.yaml_data["date"])
         if self.has_bibliography:
-            #ending += "\\begin{multicols}{2}\n\\printbibliography\n\\end{multicols}\n"
             self.header += "\\addbibresource{bibliography.bib}\n"
             self.ending += "\\printbibliography\n"
         return template.format(inner=inner,
