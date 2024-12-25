@@ -34,7 +34,7 @@ A similar modification happens for, although not fully implemented as of now. Se
 | Yay some text !                                | How about some $m\mathbf{A}t\hat{H}$ ?? |
 | Should the header text be automatically bold ? | Maybe as an option, we'll see.          |
 ^cool-table
-This should function as a caption for this table. I have not implemented this yet though. Soon !
+This should function as a caption for this table. Does it now ?
 
 ## New features
 

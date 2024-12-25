@@ -4,7 +4,7 @@ import re
 
 class PreprintRenderer(LaTeXRenderer):
     def __init__(self,include_in_header=""):
-        super().__init__(Reference,Citation,Label,Figure,Callout,MainContent,YamlHeader,LabeledEquation)
+        super().__init__(Reference,Citation,Label,Figure,Callout,MainContent,YamlHeader,LabeledEquation,CaptionnedTable)
         self.has_bibliography = False
         self.title = ""
         self.header = include_in_header
@@ -66,7 +66,7 @@ class PreprintRenderer(LaTeXRenderer):
         template = '\\begin{{equation}}\n\t{inner}\n\\label{{eq:{label}}}\\end{{equation}}\n'
         return template.format(inner = token.inner,label=token.label)
     
-    def render_table(self, token): # Modified from the inherited version
+    def render_captionned_table(self, token): # Modified from the inherited version
         def render_align(column_align):
             if column_align != [None]:
                 cols = [get_align(col) for col in token.column_align]
@@ -99,7 +99,7 @@ class PreprintRenderer(LaTeXRenderer):
             head_rendered = ''
         inner = self.render_inner(token)
         align = render_align(token.column_align)
-        return template.format(inner=head_rendered + inner, align=align, caption="", label="")
+        return template.format(inner=head_rendered + inner, align=align, caption=token.caption, label=token.label)
 
     def render_main_content(self,token):
         template = '\\begin{{maincontent}}\n{}\n\\end{{maincontent}}\n'

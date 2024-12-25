@@ -103,3 +103,26 @@ class YamlHeader(block_token.BlockToken):
         if next_line.strip() == "---":
             next(lines) # Remove ending three dashes '---'
         return line_buffer
+    
+class CaptionnedTable(block_token.Table):
+    following_string_pattern = re.compile(r"\^(\S*)\s+(.+)")
+
+    def __init__(self,tup):
+        super().__init__(tup[:2])
+        match_obj = self.following_string_pattern.match(tup[2])
+        self.label, self.caption = match_obj.groups()
+
+    @classmethod
+    def read(cls, lines): # Modified from the inherited method
+        anchor = lines.get_pos()
+        line_buffer = [next(lines)]
+        start_line = lines.line_number()
+        while lines.peek() is not None and '|' in lines.peek():
+            line_buffer.append(next(lines))
+        if len(line_buffer) < 2 or not cls.delimiter_row_pattern.fullmatch(line_buffer[1]):
+            lines.set_pos(anchor)
+            return None
+        following_string = ""
+        while lines.peek().strip() != "":
+            following_string += next(lines)
+        return line_buffer, start_line, following_string
