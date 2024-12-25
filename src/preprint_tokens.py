@@ -109,7 +109,7 @@ class CaptionnedTable(block_token.Table):
 
     def __init__(self,tup):
         super().__init__(tup[:2])
-        match_obj = self.following_string_pattern.match(tup[2])
+        match_obj = self.following_string_pattern.match(tup[2]) # Maybe add error handling (TODO)
         self.label, self.caption = match_obj.groups()
 
     @classmethod
