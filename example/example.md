@@ -29,9 +29,10 @@ Enjoy this public-domain picture of ducks I found, as an example.
 A similar modification happens for, although not fully implemented as of now. See for example Table **tab:cool-table**.
 
 
-| First column    | Second column                           |
-| --------------- | --------------------------------------- |
-| Yay some text ! | How about some $m\mathbf{A}t\hat{H}$ ?? |
+| First column                                   | Second column                           |
+| ---------------------------------------------- | --------------------------------------- |
+| Yay some text !                                | How about some $m\mathbf{A}t\hat{H}$ ?? |
+| Should the header text be automatically bold ? | Maybe as an option, we'll see.          |
 ^cool-table
 This should function as a caption for this table. I have not implemented this yet though. Soon !
 
@@ -42,4 +43,9 @@ Here is a list of new features allowed by this syntax :
 - Labeled equations ! See for example equation **eq:coffee**.$$\hat{H}_{\text{int}}=\chi\int _{V}\ket{e} \bra{g} \otimes \hat{a}(\vec{r})d^{3}\vec{r}+\text{h.c.}$$^coffee
 - Citations ! They work with an external .bib file that has to be named "bibliography.bib". You can cite any paper present in this file by preceding the reference key with an "@". Just like this : @Einstein.
 - Additionnal information in a YAML header, which allows you to precise things like title, author(s), date, additionnal LaTeX packages... and more maybe in the future
-$$\sum_{k}=b_{k}$$
+> [!theorem] Callouts
+> Obsidian callouts can be used to create any LaTeX environment, like theorems and proofs ! In these cases, the relevant packages will be automatically added.
+> ^main-theorem
+
+> [!proof]
+> This is the proof of Theorem **:main-theorem**

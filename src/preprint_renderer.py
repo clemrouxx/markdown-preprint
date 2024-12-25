@@ -5,18 +5,15 @@ import re
 class PreprintRenderer(LaTeXRenderer):
     def __init__(self,include_in_header=""):
         super().__init__(Reference,Citation,Label,Figure,Callout,MainContent,YamlHeader,LabeledEquation)
-        self.packages["multicol"] = []
         self.has_bibliography = False
         self.title = ""
         self.header = include_in_header
         self.ending = ""
         self.authors = []
         self.yaml_data = {}
-        self.number_all_equations = True
+        self.number_all_equations = False # For later TODO
 
-        # The following should rather be part of the style file
-        self.packages["geometry"] = []
-        self.header = "\\geometry{a4paper,left=20mm,top=20mm}\n"
+        self.packages["hyperref"] = []
 
     def render_reference(self, token):
         if token.target.startswith("eq:"): # Equation : we add parentheses automatically
@@ -48,12 +45,17 @@ class PreprintRenderer(LaTeXRenderer):
         return template.format(src=token.src ,label=token.label,caption=self.render_inner(token))
 
     def render_callout(self, token):
-        template = '\\begin{{{callout_type}}}\n{inner}\\end{{{callout_type}}}\n'
-        if token.type == "theorem":
-            pass # TODO : implement those (add the necessary packages)
-        elif token.type == "proof":
-            pass
-        return template.format(inner=self.render_inner(token),callout_type=token.type)
+        if token.type in ["theorem","lemma","definition"]:
+            self.packages["amsthm"] = []
+            command = f"\\newtheorem{{{token.type}}}{{{token.type.capitalize()}}}\n"
+            if command not in self.header:
+                self.header += command
+        if token.name == "":
+            template = '\\begin{{{callout_type}}}\n{inner}\\end{{{callout_type}}}\n'
+            return template.format(inner=self.render_inner(token),callout_type=token.type)
+        else:
+            template = '\\begin{{{callout_type}}}[{name}]\n{inner}\\end{{{callout_type}}}\n'
+            return template.format(inner=self.render_inner(token),callout_type=token.type,name=token.name)
 
     def render_quote(self, token):
         self.packages['csquotes'] = []

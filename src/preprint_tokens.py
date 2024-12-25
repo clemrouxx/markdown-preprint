@@ -43,21 +43,24 @@ class LabeledEquation(span_token.SpanToken):
 
 class Callout(block_token.Quote):
     pattern = re.compile(r" {0,3}> ?\[!(\S+)\]")
+    firstline_pattern = re.compile(r" *\[!(\S+)\](.*)$")
 
     def __init__(self, lines):
+        firstline = lines[0][1].pop(0) # Ugly, but it works
+        match_obj = self.firstline_pattern.match(firstline)
+        self.type = match_obj.group(1).lower()
+        self.name = match_obj.group(2).strip()
         super().__init__(lines)
-
+        
     @classmethod
     def start(cls, line):
         match_obj = cls.pattern.match(line)
         if match_obj is None:
             return False
-        cls.type = match_obj.group(1).lower()
         return True
 
     @classmethod
     def read(cls, lines): # Parsing is identical to Quote, except that we remove the first line that defines the Callout type
-        next(lines) # first line (already done)
         return super().read(lines)
 
 class MainContent(block_token.BlockToken):

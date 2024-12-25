@@ -1,6 +1,5 @@
 \documentclass{article}
-\usepackage{multicol}
-\usepackage{geometry}
+\usepackage{hyperref}
 \usepackage{authblk}
 \usepackage{braket}
 \usepackage{listings}
@@ -9,7 +8,8 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{biblatex}
-\geometry{a4paper,left=20mm,top=20mm}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
 \title{Example file for easy creation of a LaTeX file from Markdown}
 \author[1]{clemrouxx }
 \affil[1]{ETH Zürich}
@@ -68,6 +68,7 @@ A similar modification happens for, although not fully implemented as of now. Se
 First column & Second column \\
 \hline
 Yay some text ! & How about some $m\mathbf{A}t\hat{H}$ ?? \\
+Should the header text be automatically bold ? & Maybe as an option, we'll see. \\
 
 \end{tabular}
 
@@ -96,9 +97,17 @@ Citations ! They work with an external .bib file that has to be named "bibliogra
 
 \item 
 Additionnal information in a YAML header, which allows you to precise things like title, author(s), date, additionnal LaTeX packages... and more maybe in the future
-$$\sum_{k}=b_{k}$$
 
 \end{itemize}
+\begin{theorem}[Callouts]
+
+Obsidian callouts can be used to create any LaTeX environment, like theorems and proofs ! In these cases, the relevant packages will be automatically added.
+\label{main-theorem}
+\end{theorem}
+\begin{proof}
+
+This is the proof of Theorem \ref{main-theorem}
+\end{proof}
 
 \end{maincontent}
 \printbibliography
