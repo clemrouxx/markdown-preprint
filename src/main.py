@@ -18,20 +18,20 @@ def renderPDF(file_in:str,encoding='utf-8',quickrender=False,clean=False):
     tex_file = file_in.replace(".md",".tex")
     raw_file = file_in.replace(".md","")
     renderToLaTeX(file_in,encoding=encoding,file_out=tex_file)
-    os.system(f"pdflatex {tex_file} -quiet")
+    os.system(f'pdflatex "{tex_file}" -quiet')
     if not quickrender:
-        os.system(f"biber {raw_file} -quiet") # Maybe check if this is necessary ?
-        os.system(f"pdflatex {tex_file} -quiet")
+        os.system(f'biber "{raw_file}" -quiet') # Maybe check if this is necessary ?
+        os.system(f'pdflatex "{tex_file}" -quiet')
 
     if clean:
-        os.system(f"del {raw_file}.aux")
-        os.system(f"del {raw_file}.bbl")
-        os.system(f"del {raw_file}.bcf")
-        os.system(f"del {raw_file}.blg")
-        os.system(f"del {raw_file}.out")
-        os.system(f"del {raw_file}.run.xml")
-        os.system(f"del {raw_file}.toc")
-        os.system(f"del {raw_file}.log")
+        os.system(f'del "{raw_file}.aux"')
+        os.system(f'del "{raw_file}.bbl"')
+        os.system(f'del "{raw_file}.bcf"')
+        os.system(f'del "{raw_file}.blg"')
+        os.system(f'del "{raw_file}.out"')
+        os.system(f'del "{raw_file}.run.xml"')
+        os.system(f'del "{raw_file}.toc"')
+        os.system(f'del "{raw_file}.loc"')
 
 # So that this file can be run directly by Obsidian through the python scripter plugin.
 if __name__ == "__main__":
