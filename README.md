@@ -3,11 +3,13 @@
 Markdown-preprint is a Markdown-to-LaTeX compiler based on the [mistletoe project](https://github.com/miyuchina/mistletoe.git), but specifically focused on writing scientific reports or preprints. Compared to other converters, this one interpretes the markdown syntax slightly differently (for example, all inserted images must have a label and caption, and are compiled into LaTeX figures). More syntax is also added to add features to Markdown such as references, citations, author lists, etc.
 
 # Getting started
+Requirements : 
+- Python 3.10+
+- Python packages from requirements.txt
+- For LaTeX compilation : pdfLaTeX (it normally comes when installing a LaTeX distribution, such as MiKTeX).
 
-To use this script, you will need Python 3 with the packages detailed in the requirements.txt file. If you want to compile the LaTeX, you also need pdfLaTeX (it normally comes when installing a LaTeX distribution, such as MiKTeX).
-
-After downloading the code, you can run the function `renderToLaTeX` with your file name as argument to generate the LaTeX code.
-Alternatively, the function `renderPDF` also compiles the LaTeX to produce a PDF file.
+After downloading the code, you can run the function `renderToLaTeX(input_file_name,output_file_name)` to generate the LaTeX code.
+The function `renderPDF(file_name)` also compiles the LaTeX to produce a PDF file.
 
 The "main.py" file can also be called in the command line. It takes a file path and a file name as arguments, and by default does a "quick render" of your markdown to PDF.
 
