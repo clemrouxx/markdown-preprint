@@ -4,16 +4,20 @@ import re
 
 class PreprintRenderer(LaTeXRenderer):
     def __init__(self,include_in_header=""):
-        super().__init__(Reference,Citation,Label,Figure,Callout,MainContent,YamlHeader,LabeledEquation,CaptionnedTable)
+        super().__init__(Reference,Citation,Label,Figure,Callout,MainContent,YamlHeader,DisplayMath,LabeledEquation,CaptionnedTable)
         self.has_bibliography = False
         self.title = ""
         self.header = include_in_header
         self.ending = ""
         self.authors = []
         self.yaml_data = {}
-        self.number_all_equations = False # For later TODO
+        self.options = [] # Can be modified through the YAML header
 
-        self.packages["hyperref"] = []
+        self.add_package("hyperref")
+        self.add_package("inputenc","utf8")
+
+    def add_package(self,package,*options): # A bit confusing, I may not use self.packages in the end.
+        self.packages[package] = "["+",".join(options)+"]" or ''
 
     def render_reference(self, token):
         if token.target.startswith("eq:"): # Equation : we add parentheses automatically
@@ -61,10 +65,21 @@ class PreprintRenderer(LaTeXRenderer):
         self.packages['csquotes'] = []
         template = '\\begin{{displayquote}}\n{}\\end{{displayquote}}\n'
         return template.format(self.render_inner(token))
+    
+    def add_math_packages(self):
+        self.add_package("amsmath")
+        self.add_package("amsfonts")
+        self.add_package("amssymb")
 
     def render_labeled_equation(self,token):
+        self.add_math_packages()
         template = '\\begin{{equation}}\n\t{inner}\n\\label{{eq:{label}}}\\end{{equation}}\n'
         return template.format(inner = token.inner,label=token.label)
+    
+    def render_display_math(self, token):
+        self.add_math_packages()
+        template = '\\begin{{equation}}\n\t{}\n\\end{{equation}}\n' if "number-all-equations" in self.options else '$${}$$'
+        return template.format(token.content)
     
     def render_captionned_table(self, token): # Modified from the inherited version
         def render_align(column_align):
@@ -121,11 +136,13 @@ class PreprintRenderer(LaTeXRenderer):
         if "packages" in data: # Easiest way to add other packages (with no parameters). Expects a list
             for package in data["packages"]:
                 self.packages[package] = []
-        if "include-in-header" in data: # More verbose way of adding LaTeX in the .tex header
+        if "include-in-header" in data: # More verbose and customizable way of adding LaTeX in the .tex header
             if type(data["include-in-header"]) == str:
                 self.header += data["include-in-header"]+"\n"
             else: # Expect a list of strings in that case
                 self.header += "\n".join(data["include-in-header"]) + "\n"
+        if "md-compiler-options" in data:
+            self.options = data["md-compiler-options"]
         self.yaml_data = data
         return beginning_str # Will be included where the YAML header is, so normally just after '\begin{document}'
 

@@ -39,6 +39,11 @@ class LabeledEquation(span_token.SpanToken):
         self.inner = match_obj.group(1)
         self.label = match_obj.group(2)
 
+class DisplayMath(span_token.SpanToken): # Same as the 'Math' ones, but only those in DisplayMath ($$...$$) and not inline
+    pattern = re.compile(r'\$\$([^$]+?)\$\$')
+    parse_inner = False
+    parse_group = 1
+
 # Block tokens
 
 class Callout(block_token.Quote):

@@ -1,12 +1,13 @@
 \documentclass{article}
-\usepackage{hyperref}
+\usepackage[]{hyperref}
+\usepackage[utf8]{inputenc}
 \usepackage{authblk}
 \usepackage{braket}
 \usepackage{listings}
 \usepackage{graphicx}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
+\usepackage[]{amsmath}
+\usepackage[]{amsfonts}
+\usepackage[]{amssymb}
 \usepackage{biblatex}
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}
@@ -105,6 +106,16 @@ Obsidian callouts can be used to create any LaTeX environment, like theorems and
 
 This is the proof of Theorem \ref{main-theorem}
 \end{proof}
+
+\subsection{Options}
+
+I also want to have all equations (display math) to be numbered if I want, even without adding a label manually. Let's see if it works :
+\begin{equation}
+	E=mc^2
+\end{equation}
+
+
+I had way less ideas for that equation, as you can tell
 
 \end{maincontent}
 \printbibliography

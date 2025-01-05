@@ -4,6 +4,8 @@ date: Today's date !!!
 packages:
   - braket
 author: clemrouxx (ETH Zürich)
+md-compiler-options:
+  - number-all-equations
 ---
 
 > [!abstract]
@@ -49,3 +51,10 @@ Here is a list of new features allowed by this syntax :
 
 > [!proof]
 > This is the proof of Theorem **:main-theorem**
+
+## Options
+
+I also want to have all equations (display math) to be numbered if I want, even without adding a label manually. Let's see if it works :
+$$E=mc^2$$
+
+I had way less ideas for that equation, as you can tell
