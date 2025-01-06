@@ -41,12 +41,12 @@ class PreprintRenderer(LaTeXRenderer):
         template = """
 \\begin{{figure}}
     \\centering
-    \\includegraphics[width=\\textwidth]{{{src}}}
+    \\includegraphics[width={rel_width}\\textwidth]{{{src}}}
     \\caption{{{caption}}}
     \\label{{fig:{label}}}
 \\end{{figure}}
         """
-        return template.format(src=token.src ,label=token.label,caption=self.render_inner(token))
+        return template.format(src=token.src ,label=token.label,caption=self.render_inner(token),rel_width=token.relative_width)
 
     def render_callout(self, token):
         if token.type in ["theorem","lemma","definition"]:

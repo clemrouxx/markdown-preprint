@@ -24,7 +24,7 @@ We try to provide a markdown to LaTeX program oriented towards scientific articl
 
 In our program, all inserted images will be transformed into Figures. As such, the program expects a label (just after the image, preceded with a "^"), and a caption (A paragraph of text just after the label and a line break). The usual prefix "fig:" for the label will be added automatically.
 
-![](ducks.png)
+![80%](ducks.png)
 ^ducks
 Enjoy this public-domain picture of ducks I found, as an example.
 
