@@ -33,7 +33,7 @@ class Figure(span_token.SpanToken):
         self.alt_text_list = match_obj.group(1).split('|') # Generally, we expect a size indication for the width of the image (can be composed of multiple sections separated by pipes)
         self.relative_width = 1 # 100% of textwidth by default
         rel_width_match = re.compile(r'(\d{1,3})%').match(self.alt_text_list[-1]) # Should be in last position
-        if rel_width_match.group(1) is not None:
+        if rel_width_match is not None:
             self.relative_width = float(rel_width_match.group(1))/100
 
     
