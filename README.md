@@ -19,6 +19,17 @@ You will find an example of markdown file, including most added features in the 
 
 Docs coming soon... in the meantime, looking at the example markdown file should give you a good idea.
 
+## YAML Header
+
+Some information can be included in a YAML header (see the example file) at the start of the Markdown file. Recognized YAML fields are : 
+- title
+- author (name, with affiliation in parentheses)
+- authors (list of authors)
+- packages (list of LaTeX packages to use)
+- include-in-header (string of LaTeX code that will be included as given after packages imports)
+- conversion-options (list of opt-ins for the markdown-LaTeX conversion). List of recognized conversion options : 
+    - render-displaymath-as-equations
+
 # Using markdown-preprint in Obsidian
 
 I use Obsidian to take notes and edit markdown files. So I made this script to work especially well with this editor, although you can use any markdown-editor you prefer. 

@@ -4,8 +4,8 @@ date: Today's date !!!
 packages:
   - braket
 author: clemrouxx (ETH Zürich)
-md-compiler-options:
-  - number-all-equations
+conversion-options:
+  - render-displaymath-as-equations
 ---
 
 > [!abstract]

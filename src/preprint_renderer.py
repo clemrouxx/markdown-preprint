@@ -78,7 +78,7 @@ class PreprintRenderer(LaTeXRenderer):
     
     def render_display_math(self, token):
         self.add_math_packages()
-        template = '\\begin{{equation}}\n\t{}\n\\end{{equation}}\n' if "number-all-equations" in self.options else '$${}$$'
+        template = '\\begin{{equation}}\n\t{}\n\\end{{equation}}\n' if "render-displaymath-as-equations" in self.options else '$${}$$'
         return template.format(token.content)
     
     def render_captionned_table(self, token): # Modified from the inherited version
@@ -141,8 +141,8 @@ class PreprintRenderer(LaTeXRenderer):
                 self.header += data["include-in-header"]+"\n"
             else: # Expect a list of strings in that case
                 self.header += "\n".join(data["include-in-header"]) + "\n"
-        if "md-compiler-options" in data:
-            self.options = data["md-compiler-options"]
+        if "conversion-options" in data:
+            self.options = data["conversion-options"]
         self.yaml_data = data
         return beginning_str # Will be included where the YAML header is, so normally just after '\begin{document}'
 
