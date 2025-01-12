@@ -18,7 +18,7 @@ class Citation(span_token.SpanToken):
         self.key = match_obj.group(1)
 
 class Label(span_token.SpanToken):
-    pattern = re.compile(r"\^(\S+)")
+    pattern = re.compile(r"\^(\w\S+)")
     def __init__(self, match_obj):
         self.name = match_obj.group(1)
 

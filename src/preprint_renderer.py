@@ -181,4 +181,12 @@ class PreprintRenderer(LaTeXRenderer):
         return template.format(inner=inner,
                                packages=self.render_packages(),
                                ending=self.ending,header=self.header)
+    
+    # Patching this
+    def render_raw_text(self, token, escape=True):
+        return (token.content.replace('$', '\\$').replace('#', '\\#')
+                             .replace('{', '\\{').replace('}', '\\}')
+                             .replace('&', '\\&').replace('_', '\\_')
+                             .replace('%', '\\%').replace('^', '\\^{}')
+               ) if escape else token.content
 

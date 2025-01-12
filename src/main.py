@@ -14,13 +14,14 @@ def renderToLaTeX(file_in:str, file_out=None, encoding='utf-8',):
             f.write(rendered)
     return rendered
 
-def renderPDF(file_in:str,encoding='utf-8',quickrender=False,clean=False):
+def renderPDF(file_in:str,encoding='utf-8',quickrender=False,clean=False,runbiber=False):
     tex_file = file_in.replace(".md",".tex")
     raw_file = file_in.replace(".md","")
     renderToLaTeX(file_in,encoding=encoding,file_out=tex_file)
     os.system(f'pdflatex "{tex_file}" -quiet')
+    if runbiber:
+        os.system(f'biber "{raw_file}" -quiet')
     if not quickrender:
-        os.system(f'biber "{raw_file}" -quiet') # Maybe check if this is necessary ?
         os.system(f'pdflatex "{tex_file}" -quiet')
 
     if clean:
@@ -42,5 +43,5 @@ if __name__ == "__main__":
     file_name = steps[-1]
     os.chdir(file_path)
     renderPDF(file_name,quickrender=True)
-    print("Rendering finished !",file_path,file_name)
+    print("Rendering finished !")
     

@@ -50,7 +50,7 @@ Ideally, it should look nice in Obsidian, and be consistant with its parsing
 
 \subsection{Modification of basic features}
 
-In our program, all inserted images will be transformed into Figures. As such, the program expects a label (just after the image, preceded with a "\label{"),} and a caption (A paragraph of text just after the label and a line break). The usual prefix "fig:" for the label will be added automatically.
+In our program, all inserted images will be transformed into Figures. As such, the program expects a label (just after the image, preceded with a caret "\^{}"), and a caption (A paragraph of text just after the label and a line break). The usual prefix "fig:" for the label will be added automatically.
 
 
 \begin{figure}
@@ -82,7 +82,7 @@ Should the header text be automatically bold ? & Maybe as an option, we'll see. 
 Here is a list of new features allowed by this syntax :
 \begin{itemize}
 \item 
-References ! For this, just surround your label with ** ! For example, see Figure \ref{fig:ducks}. (NB : For this to work, your label must include ":". If it doesn't, add one in front of the label in your reference).
+References ! For this, just surround your label with ** ! For example, see Figure \ref{fig:ducks}. (NB : For this to work, your label must include ":". If it doesn't, add one in front of the label in your reference, like in the proof of Theorem \ref{main-theorem}).
 
 \item 
 Labeled equations ! See for example equation (\ref{eq:coffee}).\begin{equation}
