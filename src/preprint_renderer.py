@@ -81,6 +81,9 @@ class PreprintRenderer(LaTeXRenderer):
         template = '\\begin{{equation}}\n\t{}\n\\end{{equation}}\n' if "render-displaymath-as-equations" in self.options else '$${}$$'
         return template.format(token.content)
     
+    def render_thematic_break(self,token):
+        return '\\\\ \\hrulefill\n'
+    
     def render_captionned_table(self, token): # Modified from the inherited version
         def render_align(column_align):
             if column_align != [None]:
