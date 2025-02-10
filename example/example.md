@@ -28,7 +28,7 @@ In our program, all inserted images will be transformed into Figures. As such, t
 ^ducks
 Enjoy this public-domain picture of ducks I found, as an example.
 
-A similar modification happens for, although not fully implemented as of now. See for example Table **tab:cool-table**.
+Also, see for example Table **tab:cool-table**.
 
 
 | First column                                   | Second column                           |
@@ -38,6 +38,7 @@ A similar modification happens for, although not fully implemented as of now. Se
 ^cool-table
 This should function as a caption for this table. Does it now ?
 
+Let's now add some footnotes[^1]
 ## New features
 
 Here is a list of new features allowed by this syntax :
@@ -58,3 +59,5 @@ I also want to have all equations (display math) to be numbered if I want, even 
 $$E=mc^2$$
 
 I had way less ideas for that equation, as you can tell
+
+[^1]: For this, I am copying the syntax from Obsidian.

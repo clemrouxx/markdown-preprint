@@ -61,7 +61,7 @@ In our program, all inserted images will be transformed into Figures. As such, t
 \end{figure}
         
 
-A similar modification happens for, although not fully implemented as of now. See for example Table \ref{tab:cool-table}.
+Also, see for example Table \ref{tab:cool-table}.
 
 \begin{table}
     \centering
@@ -77,6 +77,8 @@ Should the header text be automatically bold ? & Maybe as an option, we'll see. 
     \label{tab:cool-table}
 \end{table}
         
+Let's now add some footnotes[\^{}1]
+
 \subsection{New features}
 
 Here is a list of new features allowed by this syntax :
@@ -99,8 +101,7 @@ Additionnal information in a YAML header, which allows you to precise things lik
 \end{itemize}
 \begin{theorem}[Callouts]
 
-Obsidian callouts can be used to create any LaTeX environment, like theorems and proofs ! In these cases, the relevant packages will be automatically added.
-\label{main-theorem}
+Obsidian callouts can be used to create any LaTeX environment, like theorems and proofs ! In these cases, the relevant packages will be automatically added.\label{main-theorem}
 \end{theorem}
 \begin{proof}
 
@@ -116,6 +117,8 @@ I also want to have all equations (display math) to be numbered if I want, even 
 
 
 I had way less ideas for that equation, as you can tell
+
+[\^{}1]: For this, I am copying the syntax from Obsidian.
 
 \end{maincontent}
 \printbibliography
