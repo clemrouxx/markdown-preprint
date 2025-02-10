@@ -22,6 +22,17 @@ class Label(span_token.SpanToken):
     def __init__(self, match_obj):
         self.name = match_obj.group(1)
 
+class Footnotemark(span_token.SpanToken):
+    pattern = re.compile(r"\[\^(\d+)\]")
+    def __init__(self, match_obj):
+        self.number = match_obj.group(1)
+
+class Footnotetext(span_token.SpanToken):
+    pattern = re.compile(r"\[\^(\d+)\]:(.+)$")
+    def __init__(self, match_obj):
+        self.number = match_obj.group(1)
+        self.text = match_obj.group(2)
+
 class Figure(span_token.SpanToken):
     pattern = re.compile(r'^!\[(.*)\]\((.*)\)\n?\^(\S*)\s+(.+)$')
     parse_inner = True

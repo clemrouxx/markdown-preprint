@@ -38,13 +38,13 @@ Also, see for example Table **tab:cool-table**.
 ^cool-table
 This should function as a caption for this table. Does it now ?
 
-Let's now add some footnotes[^1]
 ## New features
 
 Here is a list of new features allowed by this syntax :
 - References ! For this, just surround your label with \*\* ! For example, see Figure **fig:ducks**. (NB : For this to work, your label must include ":". If it doesn't, add one in front of the label in your reference, like in the proof of Theorem **:main-theorem**).
 - Labeled equations ! See for example equation **eq:coffee**.$$\hat{H}_{\text{int}}=\chi\int _{V}\ket{e} \bra{g} \otimes \hat{a}(\vec{r})d^{3}\vec{r}+\text{h.c.}$$^coffee
 - Citations ! They work with an external .bib file that has to be named "bibliography.bib". You can cite any paper present in this file by preceding the reference key with an "@". Just like this : @Einstein.
+- Footnotes[^1] ! 
 - Additionnal information in a YAML header, which allows you to precise things like title, author(s), date, additionnal LaTeX packages... and more maybe in the future
 > [!theorem] Callouts
 > Obsidian callouts can be used to create any LaTeX environment, like theorems and proofs ! In these cases, the relevant packages will be automatically added.

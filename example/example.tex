@@ -77,8 +77,6 @@ Should the header text be automatically bold ? & Maybe as an option, we'll see. 
     \label{tab:cool-table}
 \end{table}
         
-Let's now add some footnotes[\^{}1]
-
 \subsection{New features}
 
 Here is a list of new features allowed by this syntax :
@@ -94,6 +92,9 @@ Labeled equations ! See for example equation (\ref{eq:coffee}).\begin{equation}
 
 \item 
 Citations ! They work with an external .bib file that has to be named "bibliography.bib". You can cite any paper present in this file by preceding the reference key with an "@". Just like this : \cite{Einstein}.
+
+\item 
+Footnotes\footnotemark[1] !
 
 \item 
 Additionnal information in a YAML header, which allows you to precise things like title, author(s), date, additionnal LaTeX packages... and more maybe in the future
@@ -118,7 +119,7 @@ I also want to have all equations (display math) to be numbered if I want, even 
 
 I had way less ideas for that equation, as you can tell
 
-[\^{}1]: For this, I am copying the syntax from Obsidian.
+\footnotetext[1]{ For this, I am copying the syntax from Obsidian.}\n
 
 \end{maincontent}
 \printbibliography

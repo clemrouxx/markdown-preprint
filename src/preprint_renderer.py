@@ -4,7 +4,7 @@ import re
 
 class PreprintRenderer(LaTeXRenderer):
     def __init__(self,include_in_header=""):
-        super().__init__(Reference,Citation,Label,Figure,Callout,MainContent,YamlHeader,DisplayMath,LabeledEquation,CaptionnedTable)
+        super().__init__(Reference,Citation,Label,Figure,Callout,MainContent,YamlHeader,DisplayMath,LabeledEquation,CaptionnedTable,Footnotemark,Footnotetext)
         self.has_bibliography = False
         self.title = ""
         self.header = include_in_header
@@ -35,6 +35,14 @@ class PreprintRenderer(LaTeXRenderer):
     def render_label(self, token):
         template = '\\label{{{}}}'
         return template.format(token.name)
+    
+    def render_footnotemark(self, token):
+        template = '\\footnotemark[{number}]'
+        return template.format(number=token.number)
+    
+    def render_footnotetext(self, token):
+        template = '\\footnotetext[{number}]{{{text}}}\\n'
+        return template.format(number=token.number,text=token.text)
 
     def render_figure(self,token):
         self.packages["graphicx"] = []
